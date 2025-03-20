@@ -1,5 +1,5 @@
 from pathlib import Path
-from sys import stderr
+from sys import argv, stderr
 from pypdf import PdfReader, PdfWriter
 
 # 30 pages is the maximum that PaperCut will allow in a single print job
@@ -9,6 +9,10 @@ TEMP_FOLDER = Path(".", "temp")
 
 
 def get_file_path():
+    # Take file path from command-line arg if provided
+    if len(argv) > 1:
+        return Path(argv[1])
+
     raw_input = input("Enter PDF file path: ")
     # Allow quoted path, like you get if you drag and drop a file into the terminal
     if raw_input.startswith("'") and raw_input.endswith("'"):
