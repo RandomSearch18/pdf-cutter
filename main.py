@@ -1,10 +1,11 @@
+import os
 from pathlib import Path
 from sys import argv, stderr
 from pypdf import PdfReader, PdfWriter
 
 # 30 pages is the maximum that PaperCut will allow in a single print job
 # Note that this should be even so that double-sided printing can carry forward
-PAGES_PER_CHUNK = 10
+PAGES_PER_CHUNK = 30
 TEMP_FOLDER = Path(".", "temp")
 
 
@@ -55,7 +56,11 @@ def main():
         output_path.parent.mkdir(exist_ok=True)
         with open(output_path, "wb") as output_file:
             writer.write(output_file)
-        print(f"Wrote {output_path.name}")
+        print(f'Printing "{output_path.name}"')
+        try:
+            os.startfile(output_path, "print")
+        except AttributeError:
+            print("Error: Printing only works on Windows", file=stderr)
         # End the loop if we've gotten through the PDF
         chunk_number += 1
         if pages_added < PAGES_PER_CHUNK:
