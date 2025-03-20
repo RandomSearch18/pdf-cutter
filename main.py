@@ -9,6 +9,22 @@ PAGES_PER_CHUNK = 30
 TEMP_FOLDER = Path(".", "temp")
 
 
+def print_file_using_win32api(file_path):
+    # As per https://timgolden.me.uk/python/win32_how_do_i/print.html#shellexecute
+    import win32api
+    import win32print
+
+    default_printer = win32print.GetDefaultPrinter()
+    win32api.ShellExecute(
+        0,
+        "print",
+        file_path,
+        f'/d:"{default_printer}"',
+        ".",
+        0,
+    )
+
+
 def get_file_path():
     # Take file path from command-line arg if provided
     if len(argv) > 1:
@@ -42,6 +58,7 @@ def main():
     chunk_number = 1
     pages = list(reader.pages)
     while not done:
+        # Add pages to a PDF in-memory
         print(f"Creating chunk #{chunk_number}...")
         writer = PdfWriter()
         pages_added = 0
@@ -56,9 +73,11 @@ def main():
         output_path.parent.mkdir(exist_ok=True)
         with open(output_path, "wb") as output_file:
             writer.write(output_file)
+        # Print the file, I guess
         print(f'Printing "{output_path.name}"')
         try:
             os.startfile(output_path, "print")
+            # print_file_using_win32api(output_path)
         except AttributeError:
             print("Error: Printing only works on Windows", file=stderr)
         # End the loop if we've gotten through the PDF
