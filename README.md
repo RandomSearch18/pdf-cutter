@@ -4,9 +4,15 @@ A Python tool that make it easier to print massive documents on school printers,
 
 > 📖 PDF Cutter slices your PDFs for PaperCut
 
-## Usage
+## Download
 
-After cloning the repository or downloading the source code, you can run the program with `uv`:
+Cloning the repository or download the source code from this GitHub repository.
+
+On school computers, it's easiest to download [just the `main.py` file](https://github.com/RandomSearch18/pdf-cutter/raw/refs/heads/main/main.py).
+
+## Run
+
+You can run the program with `uv`:
 
 ```bash
 uv run main.py
