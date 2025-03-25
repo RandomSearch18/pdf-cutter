@@ -6,7 +6,7 @@ A Python tool that make it easier to print massive documents on school printers,
 
 ## Download
 
-Cloning the repository or download the source code from this GitHub repository.
+Clone the repository or download the source code from this GitHub repository.
 
 On school computers, it's easiest to download [just the `main.py` file](https://github.com/RandomSearch18/pdf-cutter/raw/refs/heads/main/main.py).
 
