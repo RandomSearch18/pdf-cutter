@@ -6,7 +6,7 @@ from pypdf import PdfReader, PdfWriter
 # 30 pages is the maximum that PaperCut will allow in a single print job
 # Note that this should be even so that double-sided printing can carry forward
 PAGES_PER_CHUNK = 30
-TEMP_FOLDER = Path(".", "temp")
+TEMP_FOLDER = Path(".", "pdf-cutter-temp")
 
 
 def print_file_using_win32api(file_path):

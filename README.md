@@ -25,7 +25,7 @@ py -m pip install pypdf
 py main.py
 ```
 
-It will ask you to enter the path to the PDF you want to print, split it up into chunks (saved to the `temp` folder in the current working directory), and print them to the default printer.
+It will ask you to enter the path to the PDF you want to print, split it up into chunks (saved to the `pdf-cutter-temp` folder in the current working directory), and print them to the default printer.
 
 ## Acknowledgements
 
