@@ -18,7 +18,7 @@ def print_file_using_win32api(file_path):
     win32api.ShellExecute(
         0,
         "print",
-        file_path,
+        str(file_path),
         f'/d:"{default_printer}"',
         ".",
         0,
