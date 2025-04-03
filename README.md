@@ -28,6 +28,8 @@ The program will take the PDF file you have provided, split it into a number of 
 
 In this example, the PDF chunk files would be saved in `H:\Downloads\Big document (PDF cutter)\`. See the screenshots below for another example.
 
+If you run the program multiple times, it will re-use the same subfolder, but update all the PDF chunks.
+
 ### Alternative: running with `uv`
 
 If you have the [`uv` tool](https://github.com/astral-sh/uv) installed, you can run the program directly, without having to manually install the `pypdf` package.
