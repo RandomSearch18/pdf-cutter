@@ -6,23 +6,6 @@ from pypdf import PdfReader, PdfWriter
 # 30 pages is the maximum that PaperCut will allow in a single print job
 # Note that this should be even so that double-sided printing can carry forward
 PAGES_PER_CHUNK = 30
-TEMP_FOLDER = Path(".", "pdf-cutter-temp")
-
-
-def print_file_using_win32api(file_path):
-    # As per https://timgolden.me.uk/python/win32_how_do_i/print.html#shellexecute
-    import win32api
-    import win32print
-
-    default_printer = win32print.GetDefaultPrinter()
-    win32api.ShellExecute(
-        0,
-        "print",
-        str(file_path),
-        f'/d:"{default_printer}"',
-        ".",
-        0,
-    )
 
 
 def get_file_path():
@@ -49,9 +32,10 @@ def main():
     total_pages = len(reader.pages)
     print(f"Processing {total_pages} pages")
 
-    # Prepare the temp folder
-    TEMP_FOLDER.mkdir(exist_ok=True, parents=True)
-    for file in TEMP_FOLDER.glob("*"):
+    # Prepare the target folder
+    target_folder = file_path.parent / f"{file_path.stem} (PDF cutter)"
+    target_folder.mkdir(exist_ok=True, parents=True)
+    for file in target_folder.glob("*"):
         file.unlink()
 
     done = False
@@ -69,17 +53,10 @@ def main():
             writer.add_page(page)
             pages_added += 1
         # Write the file
-        output_path = TEMP_FOLDER / f"Part {chunk_number} - {file_path.stem}.pdf"
+        output_path = target_folder / f"Part {chunk_number} - {file_path.stem}.pdf"
         output_path.parent.mkdir(exist_ok=True)
         with open(output_path, "wb") as output_file:
             writer.write(output_file)
-        # Print the file, I guess
-        print(f'Printing "{output_path.name}"')
-        try:
-            os.startfile(output_path, "print")
-            # print_file_using_win32api(output_path)
-        except AttributeError:
-            print("Error: Printing only works on Windows", file=stderr)
         # End the loop if we've gotten through the PDF
         chunk_number += 1
         if pages_added < PAGES_PER_CHUNK:
