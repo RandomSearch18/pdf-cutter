@@ -34,6 +34,12 @@ If you have the [`uv` tool](https://github.com/astral-sh/uv) installed, you can 
 uv run main.py
 ```
 
+## Screenshots
+
+![Screenshot of a single big PDF file in a file manager](docs/big-pdf-file.png)
+![Log output of the program](docs/example-output.png)
+![13 PDF part files in a folder](docs/pdf-parts.png)
+
 ## Acknowledgements
 
 ### Resources used
