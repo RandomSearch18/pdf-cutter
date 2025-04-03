@@ -33,8 +33,12 @@ def get_file_path():
 def main():
     file_path = get_file_path()
     try:
+        # Open the PDF file
         reader = PdfReader(file_path)
         print(f"Opened PDF {file_path}")
+        # Some exceptions only occur once we actually try to access the pages
+        total_pages = len(reader.pages)
+        print(f"Processing {total_pages} pages")
     except OSError as error:
         print(error, file=stderr)
         return
@@ -44,9 +48,6 @@ def main():
     except PyPdfError as error:
         print(f"Error: Failed reading PDF file ({file_path}): {error}", file=stderr)
         return
-
-    total_pages = len(reader.pages)
-    print(f"Processing {total_pages} pages")
 
     # Prepare the target folder
     target_folder = file_path.parent / f"{file_path.stem} (PDF cutter)"
