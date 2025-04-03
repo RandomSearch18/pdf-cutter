@@ -6,11 +6,12 @@ DOCUMENTATION_URL = "https://github.com/RandomSearch18/pdf-cutter#readme"
 
 try:
     from pypdf import PdfReader, PdfWriter
-    from pypdf.errors import PDFStreamError, PyPdfError
 except ImportError:
     print("Error: The pypdf package must be installed to use this program.", file=stderr)
     print(f"See program documentation for details: {DOCUMENTATION_URL}", file=stderr)
     sys.exit(1)
+
+from pypdf.errors import PyPdfError, PdfStreamError
 
 # 30 pages is the maximum that PaperCut will allow in a single print job
 # Note that this should be even so that double-sided printing can carry forward
@@ -37,7 +38,7 @@ def main():
     except OSError as error:
         print(error, file=stderr)
         return
-    except PDFStreamError:
+    except PdfStreamError:
         print(f"Error: Not a PDF file: {file_path}", file=stderr)
         return
     except PyPdfError:
