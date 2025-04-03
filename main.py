@@ -2,11 +2,14 @@ import sys
 from pathlib import Path
 from sys import argv, stderr
 
+DOCUMENTATION_URL = "https://github.com/RandomSearch18/pdf-cutter#readme"
+
 try:
     from pypdf import PdfReader, PdfWriter
     from pypdf.errors import PDFStreamError, PyPdfError
 except ImportError:
-    print("The pypdf package must be installed to use this program.", file=stderr)
+    print("Error: The pypdf package must be installed to use this program.", file=stderr)
+    print(f"See program documentation for details: {DOCUMENTATION_URL}", file=stderr)
     sys.exit(1)
 
 # 30 pages is the maximum that PaperCut will allow in a single print job
