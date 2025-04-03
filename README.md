@@ -24,7 +24,9 @@ Use Python to run `main.py`, providing it the path to your PDF file. For example
 py main.py "H:\Downloads\Big document.pdf"
 ```
 
-It will ask you to enter the path to the PDF you want to print, split it up into chunks (saved to the `pdf-cutter-temp` folder in the current working directory), and print them to the default printer.
+The program will take the PDF file you have provided, split it into a number of "chunks" of up to 30 pages each, and save them as new PDF files in a subfolder within the folder where the main PDF file is.
+
+In this example, the PDF chunk files would be saved in `H:\Downloads\Big document (PDF cutter)\`. See the screenshots below for another example.
 
 ### Alternative: running with `uv`
 
