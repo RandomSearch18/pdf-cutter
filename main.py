@@ -41,8 +41,8 @@ def main():
     except PdfStreamError:
         print(f"Error: Not a PDF file: {file_path}", file=stderr)
         return
-    except PyPdfError:
-        print(f"Error: Failed reading PDF file: {file_path}", file=stderr)
+    except PyPdfError as error:
+        print(f"Error: Failed reading PDF file ({file_path}): {error}", file=stderr)
         return
 
     total_pages = len(reader.pages)
