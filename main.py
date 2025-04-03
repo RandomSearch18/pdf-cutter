@@ -1,7 +1,13 @@
-import os
+import sys
 from pathlib import Path
 from sys import argv, stderr
-from pypdf import PdfReader, PdfWriter
+
+try:
+    from pypdf import PdfReader, PdfWriter
+    from pypdf.errors import PDFStreamError, PyPdfError
+except ImportError:
+    print("The pypdf package must be installed to use this program.", file=stderr)
+    sys.exit(1)
 
 # 30 pages is the maximum that PaperCut will allow in a single print job
 # Note that this should be even so that double-sided printing can carry forward
@@ -27,6 +33,12 @@ def main():
         print(f"Opened PDF {file_path}")
     except OSError as error:
         print(error, file=stderr)
+        return
+    except PDFStreamError:
+        print(f"Error: Not a PDF file: {file_path}", file=stderr)
+        return
+    except PyPdfError:
+        print(f"Error: Failed reading PDF file: {file_path}", file=stderr)
         return
 
     total_pages = len(reader.pages)
